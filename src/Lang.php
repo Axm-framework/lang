@@ -3,6 +3,13 @@
 namespace Axm\Lang;
 
 /**
+ * Class Lang
+ * 
+ * @author Juan Cristobal <juancristobalgd1@gmail.com>
+ * @link http://www.axm.com/
+ * @license http://www.axm.com/license/
+ * @package Axm
+ * 
  * Interface defining the methods required for a language translator.
  */
 interface LangInterface
@@ -25,7 +32,7 @@ interface LangInterface
 }
 
 /**
- * Class implementing LangInterface for handling language localization.
+ * Class implementing Lang for handling language localization.
  */
 class Lang implements LangInterface
 {
