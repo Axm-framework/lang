@@ -28,17 +28,17 @@ You can also use [Composer](https://getcomposer.org/) to install Axm in your pro
 composer require axm/lang
 ```
 
-# Lang PHP Library
+## Lang PHP Library
 
 Lang is a PHP library that provides language localization support. It includes an interface `LangInterface` defining the methods required for a language translator and a class `Lang` implementing this interface for handling language localization.
 
-## LangInterface
+### LangInterface
 
-### `getLocale(): string`
+ `getLocale(): string`
 
 Returns the current locale.
 
-### `trans(string $key, array $params = []): string`
+`trans(string $key, array $params = []): string`
 
 Translates a key with optional parameters.
 
@@ -47,27 +47,26 @@ Translates a key with optional parameters.
 
 Returns the translated message.
 
-## Lang Class
+### Lang Class
 
 ### Singleton Pattern
 
 The `Lang` class follows the singleton pattern, ensuring only one instance is created throughout the application.
 
 ### Methods
-
-#### `make(): LangInterface`
+`make(): LangInterface`
 
 Static method to get an instance of the `Lang` class.
 
-#### `setLocale(): void`
+`setLocale(): void`
 
 Sets the current locale and reloads translations.
 
-#### `getLocale(): string`
+`getLocale(): string`
 
 Gets the current locale.
 
-#### `trans(string $key, array $params = []): string`
+`trans(string $key, array $params = []): string`
 
 Translates a key with optional parameters.
 
@@ -76,21 +75,24 @@ Translates a key with optional parameters.
 
 Returns the translated message.
 
-#### `loadTranslationsFromFile(): void`
+`loadTranslationsFromFile(): void`
 
 Loads translations from language files. This method throws an `AxmException` if an error occurs while loading language files.
 
-## Configuration
+### Configuration
 
 - `DEFAULT_LANGUAGE`: The default language if no locale is set.
 
-## Usage
+### Usage
 
 ```php
 // Get an instance of Lang
 $lang = Lang::make();
 
+$lang->trans('file.message');
+
+//or
+
 // Translate a key
 $lang->trans('file.message', ['param1', 'param2']);
 ```
-# lang
