@@ -2,6 +2,8 @@
 
 namespace Axm\Lang;
 
+use Axm\Exception\AxmException;
+
 /**
  * Class Lang
  * 
@@ -39,7 +41,8 @@ class Lang implements LangInterface
     private static $instance;
     private $translations = [];
     private $locale;
-    const DEFAULT_LANGUAGE = 'en';
+    const DEFAULT_LANGUAGE = 'en_EN';
+    const LANG_PATH = ROOT_PATH . '/resources/lang';
 
     /**
      * Private constructor to enforce singleton pattern and load translations.
@@ -94,15 +97,15 @@ class Lang implements LangInterface
     {
         list($file, $messageKey) = explode('.', $key, 2);
 
-        $translationKey = "{$this->getLocale()}/$file.$messageKey";
-
-        $message = $this->translations[$translationKey] ?? $key;
+        $translationKeyFile = $this->getLocale() . DIRECTORY_SEPARATOR . $file;
+        $translationKey = $this->translations[$translationKeyFile] ?? $key;
+        $message = $translationKey[$messageKey];
 
         if (!empty($params)) {
             $message = vsprintf($message, $params);
         }
 
-        return $message;
+        return $message ?? '';
     }
 
     /**
@@ -113,16 +116,15 @@ class Lang implements LangInterface
     public function loadTranslationsFromFile(): void
     {
         $langKey = $this->getLocale();
-        $langDir = config('path.langPath') . "/$langKey/";
+        $langDir = self::LANG_PATH . DIRECTORY_SEPARATOR . $langKey . DIRECTORY_SEPARATOR;
 
         $this->translations = [];
-
         try {
             foreach (glob($langDir . '*.php') as $file) {
                 $fileKey = pathinfo($file, PATHINFO_FILENAME);
-                $this->translations["$langKey/$fileKey"] = require $file;
+                $this->translations[$langKey . DIRECTORY_SEPARATOR . $fileKey] = require $file;
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new AxmException("Error loading language file: {$e->getMessage()}");
         }
     }
