@@ -95,10 +95,10 @@ class Lang implements LangInterface
     public function trans(string $key, array $params = []): string
     {
         list($file, $messageKey) = explode('.', $key, 2);
-
         $translationKeyFile = $this->getLocale() . DIRECTORY_SEPARATOR . $file;
         $translationKey = $this->translations[$translationKeyFile] ?? $key;
-        $message = $translationKey[$messageKey];
+
+        $message = $translationKey[$messageKey] ?? '';
 
         if (!empty($params)) {
             $message = vsprintf($message, $params);
@@ -115,7 +115,7 @@ class Lang implements LangInterface
     public function loadTranslationsFromFile(): void
     {
         $langKey = $this->getLocale();
-        $langDir = config('pahs.langPath') . DIRECTORY_SEPARATOR . $langKey . DIRECTORY_SEPARATOR;
+        $langDir = config('paths.langPath') . DIRECTORY_SEPARATOR . $langKey . DIRECTORY_SEPARATOR;
 
         $this->translations = [];
         try {
