@@ -42,7 +42,7 @@ class Lang implements LangInterface
     private $translations = [];
     private $locale;
     const DEFAULT_LANGUAGE = 'en_EN';
-    const LANG_PATH = ROOT_PATH . '/resources/lang';
+    const LANG_PATH = config('pahs.langPath');
 
     /**
      * Private constructor to enforce singleton pattern and load translations.
