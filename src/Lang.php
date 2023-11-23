@@ -42,7 +42,6 @@ class Lang implements LangInterface
     private $translations = [];
     private $locale;
     const DEFAULT_LANGUAGE = 'en_EN';
-    const LANG_PATH = config('pahs.langPath');
 
     /**
      * Private constructor to enforce singleton pattern and load translations.
@@ -116,7 +115,7 @@ class Lang implements LangInterface
     public function loadTranslationsFromFile(): void
     {
         $langKey = $this->getLocale();
-        $langDir = self::LANG_PATH . DIRECTORY_SEPARATOR . $langKey . DIRECTORY_SEPARATOR;
+        $langDir = config('pahs.langPath') . DIRECTORY_SEPARATOR . $langKey . DIRECTORY_SEPARATOR;
 
         $this->translations = [];
         try {
